@@ -1,0 +1,130 @@
+{
+  "phases": [
+    {
+      "routes": [
+        {
+          "path": "/session/1/retr/1",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "base64": "K09LIDE4MSBvY3RldHMNCkZyb206IG9wZXJhdG9yQGxvY2FsLmludmFsaWQNClRvOiByZWNlcHRpb25AbG9jYWwuaW52YWxpZA0KU3ViamVjdDogPT9VVEYtOD9CPzZhS0U1N3FtNXJHSDVvQzc/PQ0KTWVzc2FnZS1JRDogPHZpc2l0LTFAbG9jYWwuaW52YWxpZD4NCg0KQ29uZmlybWVkIGdyb3VwOiAxOA0KLi5MaW5lIHdpdGggZG90DQouDQo="
+        },
+        {
+          "path": "/session/1/capa",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "body": "+OK capabilities\r\nUIDL\r\nTOP\r\n.\r\n"
+        },
+        {
+          "path": "/session/1/uidl",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "body": "+OK\r\n1 permanent-01\r\n2 permanent-02\r\n.\r\n"
+        },
+        {
+          "path": "/session/2/uidl",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "body": "+OK\r\n1 permanent-02\r\n.\r\n"
+        },
+        {
+          "path": "/session/1/top/1",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "base64": "K09LDQpTdWJqZWN0OiBHcm91cA0KDQouDQo="
+        },
+        {
+          "path": "/session/1/dele/1",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "method": "POST",
+          "body": "+OK marked\r\n"
+        },
+        {
+          "path": "/session/1/rset",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "method": "POST",
+          "body": "+OK reset\r\n"
+        },
+        {
+          "path": "/session/1/quit",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "method": "POST",
+          "body": "+OK mailbox updated\r\n"
+        }
+      ]
+    },
+    {
+      "routes": [
+        {
+          "path": "/session/1/retr/1",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "base64": "K09LIDE4MSBvY3RldHMNCkZyb206IG9wZXJhdG9yQGxvY2FsLmludmFsaWQNClRvOiByZWNlcHRpb25AbG9jYWwuaW52YWxpZA0KU3ViamVjdDogPT9VVEYtOD9CPzZhS0U1N3FtNXJHSDVvQzc/PQ0KTWVzc2FnZS1JRDogPHZpc2l0LTJAbG9jYWwuaW52YWxpZD4NCg0KQ29uZmlybWVkIGdyb3VwOiAyMQ0KLi5MaW5lIHdpdGggZG90DQouDQo="
+        },
+        {
+          "path": "/session/1/capa",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "body": "+OK capabilities\r\nUIDL\r\nTOP\r\n.\r\n"
+        },
+        {
+          "path": "/session/1/uidl",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "body": "+OK\r\n1 permanent-01\r\n2 permanent-02\r\n.\r\n"
+        },
+        {
+          "path": "/session/2/uidl",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "body": "+OK\r\n1 permanent-02\r\n.\r\n"
+        },
+        {
+          "path": "/session/1/top/1",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "base64": "K09LDQpTdWJqZWN0OiBHcm91cA0KDQouDQo="
+        },
+        {
+          "path": "/session/1/dele/1",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "method": "POST",
+          "body": "+OK marked\r\n"
+        },
+        {
+          "path": "/session/1/rset",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "method": "POST",
+          "body": "+OK reset\r\n"
+        },
+        {
+          "path": "/session/1/quit",
+          "headers": {
+            "content-type": "application/octet-stream"
+          },
+          "method": "POST",
+          "body": "+OK mailbox updated\r\n"
+        }
+      ]
+    }
+  ]
+}
