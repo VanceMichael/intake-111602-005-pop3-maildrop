@@ -29,7 +29,19 @@ export async function startSource({ scenario = 'ordinary', port = 0 } = {}) {
       const routes = config.phases[phase].routes;
       const url = new URL(path, 'http://localhost');
       const canonical = value => { const parsed = new URL(value, 'http://localhost'); parsed.searchParams.sort(); return parsed.pathname + parsed.search; };
+      // 场景可配置 POP3 映射命令的传输故障：
+      // before-commit：应答前断连且来源端不生效（模拟连接在退出前断开）；
+      // after-commit：领域状态先更新再断连（模拟退出已生效却没收到应答）。
+      const fault = (config.phases[phase].faults || []).find(item => item.path === url.pathname && (item.method || 'POST') === request.method);
+      if (fault?.disconnect === 'before-commit') {
+        requests.push({ path, phase, method: request.method, headers: {}, fault: 'before-commit' });
+        return response.destroy();
+      }
       let route = await dispatch({ url, method: request.method, phase, state: domainState, headers: request.headers });
+      if (fault?.disconnect === 'after-commit') {
+        requests.push({ path, phase, method: request.method, headers: {}, fault: 'after-commit' });
+        return response.destroy();
+      }
       if (!route) route = routes.find(item => canonical(item.path) === canonical(path) && (item.method || 'GET') === request.method);
       if (route?.json !== undefined) route = { ...route, body: JSON.stringify(route.json), headers: { 'content-type': 'application/json', ...route.headers } };
       requests.push({ path, phase, method: request.method,
