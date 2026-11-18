@@ -21,7 +21,15 @@ export async function startSource({ scenario = 'ordinary', port = 0 } = {}) {
         for await (const chunk of request) chunks.push(chunk);
         const input = JSON.parse(Buffer.concat(chunks));
         if (input.action === 'advance') phase = Math.min(phase + 1, config.phases.length - 1);
-        else if (input.action === 'reset') { phase = 0; requests.length = 0; }
+        else if (input.action === 'reset') {
+          phase = 0; requests.length = 0;
+          delete domainState.mail; delete domainState.sessions; delete domainState.seeded;
+          delete domainState.flakyQuit; delete domainState.dropQuit; delete domainState.truncateRetr;
+        }
+        else if (input.action === 'seed') { domainState.mail = input.mail; domainState.seeded = true; }
+        else if (input.action === 'flaky-quit') domainState.flakyQuit = true;
+        else if (input.action === 'drop-quit') domainState.dropQuit = true;
+        else if (input.action === 'truncate-retr') domainState.truncateRetr = true;
         else if (input.action !== 'inspect') throw new Error('未知的来源操作');
         response.setHeader('content-type', 'application/json');
         return response.end(JSON.stringify({ phase, requests }));
@@ -35,6 +43,7 @@ export async function startSource({ scenario = 'ordinary', port = 0 } = {}) {
       requests.push({ path, phase, method: request.method,
         headers: Object.fromEntries(Object.entries(request.headers).filter(([name]) => ['if-match', 'range', 'accept', 'x-institution'].includes(name))) });
       if (!route) { response.writeHead(404); return response.end('资料不存在'); }
+      if (route.silentDrop) return response.destroy();
       if (route.requiredHeader && request.headers[route.requiredHeader.name] !== route.requiredHeader.value) {
         response.writeHead(403); return response.end('当前机构无权领取该资料');
       }
